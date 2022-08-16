@@ -18,14 +18,20 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      isUppercase: true
+      validate: {
+        isTitleCase (value){
+          if (value.charAt(0) !== value.charAt(0).toUpperCase()){
+            throw new Error("you suck")
+          }
+        }
+      }
     },
     description: DataTypes.STRING,
     territory: DataTypes.STRING,
     fact: {
       type: DataTypes.STRING,
       validate: {
-        max:240
+        len:[0, 240]
       }
     },
     millimeters: {
